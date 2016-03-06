@@ -5,7 +5,11 @@
     <meta charset="UTF-8">
     <title>todo api front</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/mustache.js/0.8.1/mustache.min.js"></script>
     <script src="{% static 'js/scripts.js' %}"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 </head>
 <body>
     <h1>todo api front</h1>
@@ -16,5 +20,90 @@
         <input id="button" type="submit" value="Submit">
     </form>
     <div class="blah"></div>
+
+    <!-- if logged in -->
+    <h1 class='username-header'></h1>
+    <p class='username-p'></p>
+
+    <!-- view todos for user -->
+    <h1>Todos: </h1>
+    <button id="view-todos-button" type="submit" class="btn btn-default btn-success btn-block"><span class="glyphicon glyphicon-off"></span> View todos?</button>
+    <ul class='todos'></ul>
+
+    <!-- login Modal -->
+    <div class="modal fade" id="loginModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 style="color:red;"><span class="glyphicon glyphicon-lock"></span> Login</h4>
+                </div>
+                <div class="modal-body">
+                    <form name="login" id="loginform" action='' method="POST">
+                        {%csrf_token%}
+                        <div class="form-group">
+                            <label for="username"><span class="glyphicon glyphicon-user"></span> Username</label>
+                            <input type="text" class="form-control" id="li-username" placeholder="Enter email">
+                        </div>
+                        <div class="form-group">
+                            <label for="password"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
+                            <input type="text" class="form-control" id="li-password" placeholder="Enter password">
+                        </div>
+                        <!-- TODO add remember me functionality -->
+<!--                         <div class="checkbox">
+                            <label><input type="checkbox" value="" checked>Remember me</label>
+                        </div> -->
+                        <button id="li-submit" type="submit" class="btn btn-default btn-success btn-block"><span class="glyphicon glyphicon-off"></span> Login</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-default btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+                    <p>Not a member? <a id="sign-up-link" href="#">Sign Up</a></p>
+                    <!-- TODO add password reset -->
+                    <!-- <p>Forgot <a href="#">Password?</a></p> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- register Modal -->
+    <div class="modal fade" id="registerModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 style="color:red;"><span class="glyphicon glyphicon-lock"></span> Register</h4>
+                </div>
+                <div class="modal-body">
+                    <form role="form">
+                        <div class="form-group">
+                            <label for="username"><span class="glyphicon glyphicon-user"></span> Username</label>
+                            <input type="text" class="form-control" id="su-username" placeholder="Enter email">
+                        </div>
+                        <div class="form-group">
+                            <label for="password"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
+                            <input type="text" class="form-control" id="su-password" placeholder="Enter password">
+                        </div>
+                        <!-- TODO add remember me functionality -->
+<!--                         <div class="checkbox">
+                            <label><input type="checkbox" value="" checked>Remember me</label>
+                        </div> -->
+                        <button id="su-submit" type="submit" class="btn btn-default btn-success btn-block"><span class="glyphicon glyphicon-off"></span> Register</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-default btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+                    <p>Already a member? <a id="sign-in-link" href="#">Sign in!</a></p>
+                    <!-- TODO add password reset -->
+                    <!-- <p>Forgot <a href="#">Password?</a></p> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
